@@ -1,7 +1,6 @@
-#!/usr/bin/ruby
-
 require 'json'
 require 'csv'
+require 'sqlite3'
 require 'pp'
 
 class Commodities
@@ -45,20 +44,19 @@ end
 ## demand,demand_bracket,collected_atq
 class Listings
   def initialize
+    @db = SQLite3::Database.new "listings.db"
     @listings = Array.new
   end
 
   def find(commodity_search_id)
-    File.open("data/listings.csv") do |f|
-      CSV.parse(f.read) do |c|
-        commodity_id = c[2].to_i
-        if commodity_search_id == commodity_id then
-          @listings.push commodity_id
-        end
-        @listings.sort
-      end
+    sql = <<~SQL
+    SELECT * FROM listings
+    WHERE commodity_id == #{commodity_search_id}
+    ORDER BY buy_price ASC
+    SQL
+    @db.execute(sql) do |row|
+      pp row[5]
     end
-    puts "Listings size: #{@listings.count}"
   end
 end
 
@@ -67,4 +65,4 @@ c.open_and_parse
 c.print_top_10
 
 l = Listings.new
-puts l.find(c.return_first_result)
+l.find(c.return_first_result)
