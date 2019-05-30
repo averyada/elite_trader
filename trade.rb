@@ -35,7 +35,7 @@ class Commodities
     end
   end
 
-  def return_first_result
+  def first_result
     @commodities[0][1]['id']
   end
 end
@@ -65,4 +65,4 @@ c.open_and_parse
 c.print_top_10
 
 l = Listings.new
-l.find(c.return_first_result)
+l.find(c.first_result)
