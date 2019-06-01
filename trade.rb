@@ -1,6 +1,7 @@
 require 'json'
 require 'csv'
 require 'sqlite3'
+require 'time'
 require 'pp'
 
 class Systems
@@ -10,7 +11,7 @@ class Systems
 
   def open_and_parse
     File.open("data/systems_populated.json") do |f|
-      puts "\nParsing systems_populated.json into JSON..\n\n"
+      puts "Parsing systems_populated.json into JSON.."
       JSON.parse(f.read).each do |c|
         system_id = c['id']
         @systems[system_id] = c
@@ -20,7 +21,12 @@ class Systems
 
   def find(system_search_id)
     system = @systems.fetch(system_search_id)
-    puts "System Name : #{system['name']}"
+    puts "System Name  : #{system['name']}"
+    puts "Allegiance   : #{system['allegiance']}"
+    puts "Security     : #{system['security']}"
+    puts "Needs permit : #{system['needs_permit']}"
+    puts "X coordinate : #{system['x']}"
+    puts "Y coordinate : #{system['y']}"
   end
 end
 
@@ -31,7 +37,7 @@ class Stations
 
   def open_and_parse
     File.open("data/stations.json") do |f|
-      puts "\nParsing stations.json into JSON..\n\n"
+      puts "Parsing stations.json into JSON.."
       JSON.parse(f.read).each do |c|
         station_id = c['id']
         @stations[station_id] = c
@@ -41,9 +47,11 @@ class Stations
 
   def find(station_search_id)
     station = @stations.fetch(station_search_id)
-    puts "\nStation Name     : #{station['name']}"
+    puts "Station Name       : #{station['name']}"
     puts "Landing Pad Size   : #{station['max_landing_pad_size']}"
     puts "Distance from star : #{station['distance_to_star']} Ls"
+    puts "Market updated at  : #{Time.at(station['market_updated_at'])}"
+    puts "Planetary station  : #{station['is_planetary']}"
     return station['system_id']
   end
 end
@@ -55,7 +63,7 @@ class Commodities
 
   def open_and_parse
     File.open("data/commodities.json") do |f|
-      puts "\nParsing commodities.json into JSON..\n\n"
+      puts "Parsing commodities.json into JSON.."
       JSON.parse(f.read).each do |c|
         buy_price, sell_price = c['min_buy_price'], c['max_sell_price']
         unless buy_price.nil? or sell_price.nil?
@@ -68,10 +76,11 @@ class Commodities
   end
 
   def print_top_10
+    puts "Best trading deals in the bubble (disregarding distance)"
+    puts
     for c in @commodities[0..10]
       j = c[1]
       puts j['name']
-      puts j['id']
       puts "Profit: #{c[0]}"
       puts "Minimum Buy Price: #{j['min_buy_price']}"
       puts "Maximum Sell Price: #{j['max_sell_price']}"
@@ -117,24 +126,34 @@ class Listings
     puts "Lowest buy price   : #{lowest_buy_price} CR"
     puts "Highest sell price : #{highest_sell_price} CR"
     puts "Profit per trip    : #{highest_sell_price - lowest_buy_price} CR"
+    puts "-------------------------------------------"
+
 
     return buy_station_id, sell_station_id
   end
 end
 
 c = Commodities.new
+l = Listings.new
+stations = Stations.new
+systems = Systems.new
+
 c.open_and_parse
+stations.open_and_parse
+systems.open_and_parse
+
+puts "-------------------------------------------"
+
 c.print_top_10
 
-l = Listings.new
 buy_station_id, sell_station_id = l.find(c.first_result)
 
-stations = Stations.new
-stations.open_and_parse
+puts
+puts "-- Purchase commodity from --"
 buy_system_id  = stations.find(buy_station_id)
-sell_system_id = stations.find(sell_station_id)
-
-systems = Systems.new
-systems.open_and_parse
 systems.find(buy_system_id)
+
+puts
+puts "-- Sell commodity at --"
+sell_system_id = stations.find(sell_station_id)
 systems.find(sell_system_id)
