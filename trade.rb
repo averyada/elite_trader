@@ -49,14 +49,23 @@ class Listings
   end
 
   def find(commodity_search_id)
-    sql = <<~SQL
+    buy_price_sql = <<~SQL
     SELECT * FROM listings
     WHERE commodity_id == #{commodity_search_id}
-    ORDER BY buy_price ASC
+    ORDER BY buy_price=0, buy_price ASC
     SQL
-    @db.execute(sql) do |row|
-      pp row[5]
-    end
+
+    sell_price_sql = <<~SQL
+    SELECT * FROM listings
+    WHERE commodity_id == #{commodity_search_id}
+    ORDER BY sell_price DESC
+    SQL
+    lowest_buy_price = @db.execute(buy_price_sql)[0][5]
+    highest_sell_price = @db.execute(sell_price_sql)[0][6]
+    puts "-------------------------------------------"
+    puts "Lowest buy price   : #{lowest_buy_price} CR"
+    puts "Highest sell price : #{highest_sell_price} CR"
+    puts "Profit per trip    : #{highest_sell_price - lowest_buy_price} CR"
   end
 end
 
