@@ -4,10 +4,18 @@ require 'sqlite3'
 require 'time'
 require 'pp'
 
+# Data sources
+SYSTEMS_POPULATED = "data/systems_populated.json"
+STATIONS          = "data/stations.json"
+COMMODITIES       = "data/commodities.json"
+
+# Database
+LISTINGS_DB       = "listings.db"
+
 class Systems
   def initialize
     @systems = Hash.new
-    File.open("data/systems_populated.json") do |f|
+    File.open(SYSTEMS_POPULATED) do |f|
       puts "Parsing systems_populated.json into JSON.."
       JSON.parse(f.read).each do |c|
         system_id = c['id']
@@ -30,7 +38,7 @@ end
 class Stations
   def initialize
     @stations = Hash.new
-    File.open("data/stations.json") do |f|
+    File.open(STATIONS) do |f|
       puts "Parsing stations.json into JSON.."
       JSON.parse(f.read).each do |c|
         station_id = c['id']
@@ -53,7 +61,7 @@ end
 class Commodities
   def initialize
     @commodities = Hash.new
-    File.open("data/commodities.json") do |f|
+    File.open(COMMODITIES) do |f|
       puts "Parsing commodities.json into JSON.."
       JSON.parse(f.read).each do |c|
         buy_price, sell_price = c['min_buy_price'], c['max_sell_price']
@@ -88,7 +96,7 @@ end
 ## demand,demand_bracket,collected_atq
 class Listings
   def initialize
-    @db = SQLite3::Database.new "listings.db"
+    @db = SQLite3::Database.new LISTINGS_DB
     @listings = Array.new
   end
 
