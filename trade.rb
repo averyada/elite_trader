@@ -7,9 +7,6 @@ require 'pp'
 class Systems
   def initialize
     @systems = Hash.new
-  end
-
-  def open_and_parse
     File.open("data/systems_populated.json") do |f|
       puts "Parsing systems_populated.json into JSON.."
       JSON.parse(f.read).each do |c|
@@ -33,9 +30,6 @@ end
 class Stations
   def initialize
     @stations = Hash.new
-  end
-
-  def open_and_parse
     File.open("data/stations.json") do |f|
       puts "Parsing stations.json into JSON.."
       JSON.parse(f.read).each do |c|
@@ -59,9 +53,6 @@ end
 class Commodities
   def initialize
     @commodities = Hash.new
-  end
-
-  def open_and_parse
     File.open("data/commodities.json") do |f|
       puts "Parsing commodities.json into JSON.."
       JSON.parse(f.read).each do |c|
@@ -137,10 +128,6 @@ c = Commodities.new
 l = Listings.new
 stations = Stations.new
 systems = Systems.new
-
-c.open_and_parse
-stations.open_and_parse
-systems.open_and_parse
 
 puts "-------------------------------------------"
 
