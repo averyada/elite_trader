@@ -124,16 +124,16 @@ class Listings
   end
 end
 
-c = Commodities.new
-l = Listings.new
-stations = Stations.new
 systems = Systems.new
+stations = Stations.new
+commodities = Commodities.new
+listings = Listings.new
 
 puts "-------------------------------------------"
 
-c.print_top_10
+commodities.print_top_10
 
-buy_station_id, sell_station_id = l.find(c.first_result)
+buy_station_id, sell_station_id = listings.find(commodities.first_result)
 
 puts
 puts "-- Purchase commodity from --"
