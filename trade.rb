@@ -3,6 +3,27 @@ require 'csv'
 require 'sqlite3'
 require 'pp'
 
+class Systems
+  def initialize
+    @systems = Hash.new
+  end
+
+  def open_and_parse
+    File.open("data/systems_populated.json") do |f|
+      puts "\nParsing systems_populated.json into JSON..\n\n"
+      JSON.parse(f.read).each do |c|
+        system_id = c['id']
+        @systems[system_id] = c
+      end
+    end
+  end
+
+  def find(system_search_id)
+    system = @systems.fetch(system_search_id)
+    puts "System Name : #{system['name']}"
+  end
+end
+
 class Stations
   def initialize
     @stations = Hash.new
@@ -108,7 +129,12 @@ c.print_top_10
 l = Listings.new
 buy_station_id, sell_station_id = l.find(c.first_result)
 
-s = Stations.new
-s.open_and_parse
-s.find(buy_station_id)
-s.find(sell_station_id)
+stations = Stations.new
+stations.open_and_parse
+buy_system_id  = stations.find(buy_station_id)
+sell_system_id = stations.find(sell_station_id)
+
+systems = Systems.new
+systems.open_and_parse
+systems.find(buy_system_id)
+systems.find(sell_system_id)
