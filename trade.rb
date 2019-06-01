@@ -26,23 +26,25 @@ class TradeHopFinder
   end
 
   def find_best_single_hop
-    commodity_id = @commodities.first_result['id']
-    buy_station_id, sell_station_id = @listings.find(commodity_id)
+    commodity = @commodities.first_result
+    buy_station_id, sell_station_id = @listings.find(commodity['id'])
 
     buy_station  = @stations.find(buy_station_id)
     sell_station = @stations.find(sell_station_id)
     buy_system   = @systems.find(buy_station['system_id'])
     sell_system  = @systems.find(sell_station['system_id'])
 
-    puts
-    puts "-- Purchase commodity from --"
+    puts "-------------------------------------------"
+    puts "Buy #{commodity['name']}"
     print_system_info(buy_system)
     print_station_info(buy_station)
 
     puts
-    puts "-- Sell commodity at --"
+    puts "Sell #{commodity['name']}"
     print_system_info(sell_system)
     print_station_info(sell_station)
+    puts "-------------------------------------------"
+
   end
 
   private
@@ -160,7 +162,7 @@ class Listings
     highest_sell_price = highest_sell_price_data[6]
     buy_station_id     = lowest_buy_price_data[1]
     sell_station_id    = highest_sell_price_data[1]
-    
+
     return buy_station_id, sell_station_id
   end
 end
