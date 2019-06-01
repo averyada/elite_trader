@@ -35,6 +35,7 @@ class TradeHopFinder
     sell_system  = @systems.find(sell_station['system_id'])
 
     puts "-------------------------------------------"
+    puts "Trade route distance: #{calculate_distance(buy_system, sell_system)} LY"
     puts "Buy #{commodity['name']}"
     print_system_info(buy_system)
     print_station_info(buy_station)
@@ -63,6 +64,13 @@ class TradeHopFinder
     puts "Distance from star : #{station['distance_to_star']} Ls"
     puts "Market updated at  : #{Time.at(station['market_updated_at'])}"
     puts "Planetary station  : #{station['is_planetary']}"
+  end
+
+  def calculate_distance(a, b)
+    #p1 to p2 = ABS(SQRT((x1 - x0) ^ 2 + (y1 - y0) ^ 2 + (z1 - z0) ^ 2))
+    a_x, a_y, a_z, b_x, b_y, b_z = a['x'], a['y'], a['z'], b['x'], b['y'], b['z']
+
+    dist = (Integer.sqrt( (a_x - b_x)**2 + (a_y - b_y)**2 + (a_z - b_z)**2 )).abs
   end
 end
 
