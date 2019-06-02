@@ -18,18 +18,22 @@ class TradeHopFinder
     commodity = @commodities.top_commodity
     @listings.find(commodity['id'])
 
-    for i in 0..10
-      buy_station  = @stations.find(@listings.buy_listings[i][1])
-      sell_station = @stations.find(@listings.sell_listings[i][1])
-      buy_system   = @systems.find(buy_station['system_id'])
-      sell_system  = @systems.find(sell_station['system_id'])
-      r = Route.new(commodity, buy_system, sell_system, buy_station, sell_station)
-      @routes.push(r)
+    for x in 0..10
+      for y in 0..10
+        buy_station  = @stations.find(@listings.buy_listings[x][1])
+        sell_station = @stations.find(@listings.sell_listings[y][1])
+        buy_system   = @systems.find(buy_station['system_id'])
+        sell_system  = @systems.find(sell_station['system_id'])
+        r = Route.new(commodity, buy_system, sell_system, buy_station, sell_station)
+        @routes.push(r)
+      end
     end
 
-    @routes.each do |r|
+    @routes.sort! {|a,b| a.distance <=> b.distance }
+
+    @routes.first(10).each do |r|
       puts "-------------------------------------------"
-      puts "Trade route distance: #{calculate_distance(r.buy_system, r.sell_system)} LY"
+      puts "Trade route distance: #{r.distance} LY"
       puts "Buy #{r.commodity['name']}"
       print_system_info(r.buy_system)
       print_station_info(r.buy_station)
@@ -59,10 +63,5 @@ class TradeHopFinder
     puts "Distance from star : #{station['distance_to_star']} Ls"
     puts "Market updated at  : #{Time.at(station['market_updated_at'])}"
     puts "Planetary station  : #{station['is_planetary']}"
-  end
-
-  def calculate_distance(a, b)
-    a_x, a_y, a_z, b_x, b_y, b_z = a['x'], a['y'], a['z'], b['x'], b['y'], b['z']
-    (Integer.sqrt( (a_x - b_x)**2 + (a_y - b_y)**2 + (a_z - b_z)**2 )).abs
   end
 end
