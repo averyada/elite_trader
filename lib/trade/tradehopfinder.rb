@@ -13,7 +13,7 @@ class TradeHopFinder
   end
 
   def top_profitable_commodity
-    return @commodities.first_result
+    @commodities.first_result
   end
 
   def find_best_single_hop
