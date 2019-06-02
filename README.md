@@ -10,4 +10,8 @@ Usage is very simple, just initialize the ruby environment using bundle and
 execute the run script.
 
     bundle install
-    ./run.sh
+    ruby trade.rb COMMAND
+
+A list of the various options can be found by executing the help task.
+
+    ruby trade.rb help
