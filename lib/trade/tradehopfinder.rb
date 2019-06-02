@@ -10,14 +10,15 @@ class TradeHopFinder
     @stations    = Stations.new
     @commodities = Commodities.new
     @listings    = Listings.new
+    @routes      =
   end
 
   def find_best_single_hop
     commodity = @commodities.top_commodity
     buy_station_id, sell_station_id = @listings.find(commodity['id'])
 
-    buy_station  = @stations.find(@listings.buy_stations[0][1])
-    sell_station = @stations.find(@listings.sell_stations[0][1])
+    buy_station  = @stations.find(@listings.buy_listings[0][1])
+    sell_station = @stations.find(@listings.sell_listings[0][1])
     buy_system   = @systems.find(buy_station['system_id'])
     sell_system  = @systems.find(sell_station['system_id'])
 
