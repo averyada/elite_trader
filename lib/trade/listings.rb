@@ -3,10 +3,13 @@ LISTINGS_DB = "data/listings.db"
 ## id,station_id,commodity_id,supply,supply_bracket,buy_price,sell_price,
 ## demand,demand_bracket,collected_atq
 class Listings
+  attr_reader :buy_stations, :sell_stations
+
   def initialize
     puts "Creating connection to #{LISTINGS_DB}.."
     @db = SQLite3::Database.new LISTINGS_DB
-    @listings = Array.new
+    @buy_stations  = Array.new
+    @sell_stations = Array.new
   end
 
   def find(commodity_search_id)
@@ -22,12 +25,7 @@ class Listings
     ORDER BY sell_price DESC
     SQL
 
-    lowest_buy_price_data   = @db.execute(buy_price_sql)[0]
-    highest_sell_price_data = @db.execute(sell_price_sql)[0]
-
-    buy_station_id     = lowest_buy_price_data[1]
-    sell_station_id    = highest_sell_price_data[1]
-
-    return buy_station_id, sell_station_id
+    @buy_stations  = @db.execute(buy_price_sql)
+    @sell_stations = @db.execute(sell_price_sql)
   end
 end

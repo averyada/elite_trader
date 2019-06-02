@@ -16,8 +16,8 @@ class TradeHopFinder
     commodity = @commodities.top_commodity
     buy_station_id, sell_station_id = @listings.find(commodity['id'])
 
-    buy_station  = @stations.find(buy_station_id)
-    sell_station = @stations.find(sell_station_id)
+    buy_station  = @stations.find(@listings.buy_stations[0][1])
+    sell_station = @stations.find(@listings.sell_stations[0][1])
     buy_system   = @systems.find(buy_station['system_id'])
     sell_system  = @systems.find(sell_station['system_id'])
 
