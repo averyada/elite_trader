@@ -1,9 +1,9 @@
-STATIONS = "data/stations.json"
+STATIONS_JSON = "data/stations.json"
 
 class Stations
   def initialize
     @stations = Hash.new
-    File.open(STATIONS) do |f|
+    File.open(STATIONS_JSON) do |f|
       puts "Parsing stations.json into JSON.."
       JSON.parse(f.read).each do |c|
         station_id = c['id']

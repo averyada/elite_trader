@@ -1,4 +1,4 @@
-LISTINGS_DB       = "listings.db"
+LISTINGS_DB = "listings.db"
 
 ## id,station_id,commodity_id,supply,supply_bracket,buy_price,sell_price,
 ## demand,demand_bracket,collected_atq

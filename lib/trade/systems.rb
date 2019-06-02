@@ -1,9 +1,9 @@
-SYSTEMS_POPULATED = "data/systems_populated.json"
+SYSTEMS_POPULATED_JSON = "data/systems_populated.json"
 
 class Systems
   def initialize
     @systems = Hash.new
-    File.open(SYSTEMS_POPULATED) do |f|
+    File.open(SYSTEMS_POPULATED_JSON) do |f|
       puts "Parsing systems_populated.json into JSON.."
       JSON.parse(f.read).each do |c|
         system_id = c['id']

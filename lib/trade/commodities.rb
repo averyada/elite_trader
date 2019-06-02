@@ -1,9 +1,9 @@
-COMMODITIES       = "data/commodities.json"
+COMMODITIES_JSON = "data/commodities.json"
 
 class Commodities
   def initialize
     @commodities = Hash.new
-    File.open(COMMODITIES) do |f|
+    File.open(COMMODITIES_JSON) do |f|
       puts "Parsing commodities.json into JSON.."
       JSON.parse(f.read).each do |c|
         buy_price, sell_price = c['min_buy_price'], c['max_sell_price']
