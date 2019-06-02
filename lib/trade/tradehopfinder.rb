@@ -2,6 +2,7 @@ require_relative 'systems'
 require_relative 'stations'
 require_relative 'commodities'
 require_relative 'listings'
+require_relative 'route'
 
 class TradeHopFinder
   attr_reader :systems, :stations, :commodities, :listings
@@ -10,30 +11,36 @@ class TradeHopFinder
     @stations    = Stations.new
     @commodities = Commodities.new
     @listings    = Listings.new
-    @routes      =
+    @routes      = Array.new
   end
 
   def find_best_single_hop
     commodity = @commodities.top_commodity
     buy_station_id, sell_station_id = @listings.find(commodity['id'])
 
-    buy_station  = @stations.find(@listings.buy_listings[0][1])
-    sell_station = @stations.find(@listings.sell_listings[0][1])
-    buy_system   = @systems.find(buy_station['system_id'])
-    sell_system  = @systems.find(sell_station['system_id'])
+    for i in 0..10
+      buy_station  = @stations.find(@listings.buy_listings[i][1])
+      sell_station = @stations.find(@listings.sell_listings[i][1])
+      buy_system   = @systems.find(buy_station['system_id'])
+      sell_system  = @systems.find(sell_station['system_id'])
+      r = Route.new(commodity, buy_system, sell_system, buy_station, sell_station)
+      @routes.push(r)
+    end
 
-    puts "-------------------------------------------"
-    puts "Trade route distance: #{calculate_distance(buy_system, sell_system)} LY"
-    puts "Buy #{commodity['name']}"
-    print_system_info(buy_system)
-    print_station_info(buy_station)
+    @routes.each do |r|
+      puts "-------------------------------------------"
+      puts "Trade route distance: #{calculate_distance(r.buy_system, r.sell_system)} LY"
+      puts "Buy #{r.commodity['name']}"
+      print_system_info(r.buy_system)
+      print_station_info(r.buy_station)
 
-    puts "-------------------------------------------"
+      puts "        >>>>>>>>>>>>>>>>>>>>>>>>>>>        "
 
-    puts "Sell #{commodity['name']}"
-    print_system_info(sell_system)
-    print_station_info(sell_station)
-    puts "-------------------------------------------"
+      puts "Sell #{r.commodity['name']}"
+      print_system_info(r.sell_system)
+      print_station_info(r.sell_station)
+      puts "-------------------------------------------"
+    end
   end
 
   private
