@@ -25,8 +25,6 @@ class Listings
     lowest_buy_price_data   = @db.execute(buy_price_sql)[0]
     highest_sell_price_data = @db.execute(sell_price_sql)[0]
 
-    lowest_buy_price   = lowest_buy_price_data[5]
-    highest_sell_price = highest_sell_price_data[6]
     buy_station_id     = lowest_buy_price_data[1]
     sell_station_id    = highest_sell_price_data[1]
 
