@@ -41,7 +41,8 @@ class TradeHopFinder
     print_system_info(buy_system)
     print_station_info(buy_station)
 
-    puts
+    puts "-------------------------------------------"
+
     puts "Sell #{commodity['name']}"
     print_system_info(sell_system)
     print_station_info(sell_station)
@@ -125,6 +126,7 @@ class Commodities
   end
 
   def print_top_10
+    puts "-------------------------------------------"
     puts "Best trading deals in the bubble (disregarding distance)"
     puts
     for c in @commodities[0..10]
@@ -180,15 +182,25 @@ class App < Thor
   package_name "eett"
 
   map "-B" => :besthop
+  map "-T" => :top10
+
+  def initialize(*args)
+    super
+    @tradehops = TradeHopFinder.new
+  end
 
   def self.exit_on_failure?
     true
   end
 
+  desc "top10", "Displays the top 10 most profitable commodities"
+  def top10
+    @tradehops.commodities.print_top_10
+  end
+
   desc "besthop", "Calculate the most profitable single hop trade route"
   def besthop
-    tradehops = TradeHopFinder.new
-    tradehops.find_best_single_hop()
+    @tradehops.find_best_single_hop()
   end
 end
 
