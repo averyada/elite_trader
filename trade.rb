@@ -2,6 +2,7 @@ require 'json'
 require 'csv'
 require 'sqlite3'
 require 'time'
+require 'thor'
 require 'pp'
 
 # Data sources
@@ -174,9 +175,20 @@ class Listings
   end
 end
 
-tradehops = TradeHopFinder.new
+class App < Thor
+  package_name "eett"
 
-puts "-------------------------------------------"
+  map "-B" => :besthop
 
-tradehops.commodities.print_top_10
-tradehops.find_best_single_hop()
+  def self.exit_on_failure?
+    true
+  end
+
+  desc "besthop", "Calculate the most profitable single hop trade route"
+  def besthop
+    tradehops = TradeHopFinder.new
+    tradehops.find_best_single_hop()
+  end
+end
+
+App.start
