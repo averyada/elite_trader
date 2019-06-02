@@ -16,7 +16,7 @@ class TradeHopFinder
 
   def find_best_single_hop
     commodity = @commodities.top_commodity
-    buy_station_id, sell_station_id = @listings.find(commodity['id'])
+    @listings.find(commodity['id'])
 
     for i in 0..10
       buy_station  = @stations.find(@listings.buy_listings[i][1])
