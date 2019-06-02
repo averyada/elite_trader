@@ -30,7 +30,7 @@ class Commodities
     end
   end
 
-  def first_result
+  def top_commodity
     @commodities[0][1]
   end
 end

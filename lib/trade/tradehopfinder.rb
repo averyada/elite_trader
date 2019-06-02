@@ -12,12 +12,8 @@ class TradeHopFinder
     @listings    = Listings.new
   end
 
-  def top_profitable_commodity
-    @commodities.first_result
-  end
-
   def find_best_single_hop
-    commodity = @commodities.first_result
+    commodity = @commodities.top_commodity
     buy_station_id, sell_station_id = @listings.find(commodity['id'])
 
     buy_station  = @stations.find(buy_station_id)
@@ -37,7 +33,6 @@ class TradeHopFinder
     print_system_info(sell_system)
     print_station_info(sell_station)
     puts "-------------------------------------------"
-
   end
 
   private
