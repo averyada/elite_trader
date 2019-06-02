@@ -10,4 +10,3 @@ else
   echo "Initializing commodity database listings.db from csv file.."
   cat listings.sql | sqlite3
 fi
-ruby trade.rb
