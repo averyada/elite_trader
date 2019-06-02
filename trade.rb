@@ -146,6 +146,7 @@ end
 ## demand,demand_bracket,collected_atq
 class Listings
   def initialize
+    puts "Creating connection to #{LISTINGS_DB}.."
     @db = SQLite3::Database.new LISTINGS_DB
     @listings = Array.new
   end
