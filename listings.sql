@@ -1,5 +1,5 @@
 .mode csv
-.open listings.db
+.open data/listings.db
 BEGIN;
 CREATE TABLE listings(
   "id" INTEGER NOT NULL,
