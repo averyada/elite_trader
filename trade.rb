@@ -183,23 +183,20 @@ class App < Thor
   map "-B" => :besthop
   map "-T" => :top10
 
-  def initialize(*args)
-    super
-    @tradehops = TradeHopFinder.new
-  end
-
   def self.exit_on_failure?
     true
   end
 
   desc "top10", "Displays the top 10 most profitable commodities"
   def top10
-    @tradehops.commodities.print_top_10
+    tradehops = TradeHopFinder.new
+    tradehops.commodities.print_top_10
   end
 
   desc "besthop", "Calculate the most profitable single hop trade route"
   def besthop
-    @tradehops.find_best_single_hop()
+    tradehops = TradeHopFinder.new
+    tradehops.find_best_single_hop()
   end
 end
 
