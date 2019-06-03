@@ -33,7 +33,7 @@ class App < Thor
   method_option :listings, :type => :numeric, :default => 10
   method_option :results,  :type => :numeric, :default => 10
   def besthop
-    tradehops = EliteTrader::TradeHopFinder.new
+    tradehops = EliteTrader::TradeHopFinder.new(options[:verbose])
     tradehops.find_best_single_hop(options)
   end
 end
