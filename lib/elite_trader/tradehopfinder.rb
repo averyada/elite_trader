@@ -41,7 +41,7 @@ module EliteTrader
         puts "Route ##{idx+1}"
         puts "-------------------------------------------"
         puts "Trade route distance: #{r.distance} LY"
-        puts "Profit: #{r.profit} CR"
+        puts "Profit: #{r.profit} CR/ton"
         puts "Profit per LY: #{r.profit_per_ly} CR/LY"
         puts
         puts "Buy #{r.commodity['name']}"
