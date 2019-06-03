@@ -9,8 +9,8 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Blaine Pace"]
   spec.email         = ["blainepace@gmail.com"]
 
-  spec.summary       = %q{TODO: Elite Dangerous Trading Route Tool}
-  spec.description   = %q{TODO: Elite Dangerous Trading Route Tool}
+  spec.summary       = %q{Elite Dangerous Trading Route Tool}
+  spec.description   = %q{Elite Dangerous Trading Route Tool}
   spec.homepage      = "https://github.com/pacebl/extraneous-elite-trading-tool"
   spec.license       = "MIT"
 
