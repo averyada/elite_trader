@@ -34,7 +34,7 @@ module EliteTrader
         end
       end
 
-      @routes.sort! {|a,b| a.distance <=> b.distance }
+      @routes.sort! {|a,b| a.profit_per_ly <=> b.profit_per_ly }.reverse!
 
       puts "-------------------------------------------"
       @routes.first(options[:results]).each_with_index do |r, idx|

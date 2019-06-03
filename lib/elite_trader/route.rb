@@ -24,7 +24,7 @@ module EliteTrader
     end
 
     def profit_per_ly
-      profit / distance
+      (profit / distance.to_f).round(2)
     end
   end
 end
