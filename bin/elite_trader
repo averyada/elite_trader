@@ -23,6 +23,11 @@ class App < Thor
     true
   end
 
+  desc "version", "Prints the version"
+  def version
+    puts EliteTrader::VERSION
+  end
+
   desc "top10", "Displays the top 10 most profitable commodities"
   def top10
     tradehops = EliteTrader::TradeHopFinder.new
