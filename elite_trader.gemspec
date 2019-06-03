@@ -1,8 +1,8 @@
 Gem::Specification.new do |s|
-  s.name = %q{eedd}
+  s.name = %q{elite_trader}
   s.version = "0.0.1"
   s.date = %q{2019-06-01}
-  s.summary = %q{eedd is an elite trading tool}
+  s.summary = %q{elite_trader is an elite trading algorithmic toolkit}
   s.files = [
     "Gemfile",
     "lib/trade.rb",
