@@ -10,7 +10,7 @@ require 'pp'
 require_relative '../lib/elite_trader'
 
 class App < Thor
-  package_name "eett"
+  package_name "elite_trader"
 
   map "-B" => :besthop
   map "-T" => :top10
