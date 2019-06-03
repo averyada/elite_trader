@@ -65,10 +65,13 @@ module EliteTrader
 
     private
     def print_system_info(system)
-      puts "System Name  : #{system['name']}"
-      puts "Allegiance   : #{system['allegiance']}"
-      puts "Security     : #{system['security']}"
-      puts "Needs permit : #{system['needs_permit']}"
+      puts "System Name        : #{system['name']}"
+      puts "Population         : #{system['population']}"
+      puts "Government         : #{system['government']}"
+      puts "Allegiance         : #{system['allegiance']}"
+      puts "Security           : #{system['security']}"
+      puts "Primary Economy    : #{system['primary_economy']}"
+      puts "Needs permit       : #{system['needs_permit']}"
     end
 
     def print_station_info(station)
