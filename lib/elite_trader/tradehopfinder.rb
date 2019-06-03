@@ -15,12 +15,12 @@ module EliteTrader
       @routes      = Array.new
     end
 
-    def find_best_single_hop(listings_count)
+    def find_best_single_hop(options)
       commodity = @commodities.top_commodity
       @listings.find(commodity['id'])
 
-      for x in 0..listings_count
-        for y in 0..listings_count
+      for x in 0..options[:listings]
+        for y in 0..options[:listings]
           buy_station  = @stations.find(@listings.buy_listings[x][1])
           sell_station = @stations.find(@listings.sell_listings[y][1])
           buy_system   = @systems.find(buy_station['system_id'])
@@ -33,7 +33,7 @@ module EliteTrader
       @routes.sort! {|a,b| a.distance <=> b.distance }
 
       puts "-------------------------------------------"
-      @routes.first(10).each_with_index do |r, idx|
+      @routes.first(options[:results]).each_with_index do |r, idx|
         puts "Route ##{idx+1}"
         puts "-------------------------------------------"
         puts "Trade route distance: #{r.distance} LY"
