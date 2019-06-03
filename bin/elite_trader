@@ -35,8 +35,9 @@ class App < Thor
   end
 
   desc "besthop", "Calculate the most profitable single hop trade route"
-  method_option :listings, :type => :numeric, :default => 10
-  method_option :results,  :type => :numeric, :default => 10
+  method_option :listings,   :type => :numeric, :default => 10
+  method_option :results,    :type => :numeric, :default => 10
+  method_option :large_pads, :type => :boolean, :default => false
   def besthop
     tradehops = EliteTrader::TradeHopFinder.new(options[:verbose])
     tradehops.find_best_single_hop(options)

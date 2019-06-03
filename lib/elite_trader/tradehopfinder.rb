@@ -36,6 +36,12 @@ module EliteTrader
 
       @routes.sort! {|a,b| a.profit_per_ly <=> b.profit_per_ly }.reverse!
 
+      @routes.delete_if do |r|
+        buy_padsize  = r.buy_station['max_landing_pad_size']
+        sell_padsize = r.sell_station['max_landing_pad_size']
+        options[:large_pads] && (buy_padsize != "L" || sell_padsize != "L")
+      end
+
       puts "-------------------------------------------"
       @routes.first(options[:results]).each_with_index do |r, idx|
         puts "Route ##{idx+1}"
