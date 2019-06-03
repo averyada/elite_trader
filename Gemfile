@@ -1,4 +1,6 @@
-source 'https://www.rubygems.org/'
+source "https://rubygems.org"
 
-gem 'sqlite3'
-gem 'thor'
+git_source(:github) {|repo_name| "https://github.com/#{repo_name}" }
+
+# Specify your gem's dependencies in elite_trader.gemspec
+gemspec
