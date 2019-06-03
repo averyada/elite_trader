@@ -28,10 +28,10 @@ class App < Thor
     puts EliteTrader::VERSION
   end
 
-  desc "top10", "Displays the top 10 most profitable commodities"
-  def top10
+  desc "top_commodities COUNT", "Displays the top most profitable commodities"
+  def top_commodities(count)
     tradehops = EliteTrader::TradeHopFinder.new
-    tradehops.commodities.print_top_10
+    tradehops.commodities.print_top(count.to_i)
   end
 
   desc "besthop", "Calculate the most profitable single hop trade route"

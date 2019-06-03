@@ -17,11 +17,11 @@ module EliteTrader
       @commodities = @commodities.sort.reverse
     end
 
-    def print_top_10
+    def print_top(count)
       puts "-------------------------------------------"
       puts "Best trading deals in the bubble (disregarding distance)"
       puts
-      for c in @commodities[0..10]
+      for c in @commodities[0..count]
         j = c[1]
         puts j['name']
         puts "Profit: #{c[0]}"
