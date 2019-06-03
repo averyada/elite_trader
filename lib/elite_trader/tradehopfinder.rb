@@ -42,6 +42,12 @@ module EliteTrader
         options[:large_pads] && (buy_padsize != "L" || sell_padsize != "L")
       end
 
+      @routes.delete_if do |r|
+        buy_sec  = r.buy_system['security']
+        sell_sec = r.sell_system['security']
+        options[:ignore_anarchy] && (buy_sec == "Anarchy" || sell_sec == "Anarchy")
+      end
+
       puts "-------------------------------------------"
       @routes.first(options[:results]).each_with_index do |r, idx|
         puts "Route ##{idx+1}"
