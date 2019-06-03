@@ -12,8 +12,8 @@ require_relative '../lib/elite_trader'
 class App < Thor
   package_name "elite_trader"
 
-  map "-B" => :besthop
-  map "-T" => :top10
+  #map "-B" => :besthop
+  #map "-T" => :top10
 
   class_option :verbose, :type => :boolean
 
