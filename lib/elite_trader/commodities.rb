@@ -24,6 +24,7 @@ module EliteTrader
       for c in @commodities[0..count]
         j = c[1]
         puts j['name']
+        puts "id: #{j['id']}"
         puts "Profit: #{c[0]}"
         puts "Minimum Buy Price: #{j['min_buy_price']}"
         puts "Maximum Sell Price: #{j['max_sell_price']}"
