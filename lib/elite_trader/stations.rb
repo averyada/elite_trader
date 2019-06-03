@@ -2,10 +2,10 @@ STATIONS_JSON = "data/stations.json"
 
 module EliteTrader
   class Stations
-    def initialize
+    def initialize(verbose=false)
       @stations = Hash.new
       File.open(STATIONS_JSON) do |f|
-        puts "Parsing stations.json into JSON.."
+        puts "Parsing stations.json into JSON.." if verbose
         JSON.parse(f.read).each do |c|
           station_id = c['id']
           @stations[station_id] = c

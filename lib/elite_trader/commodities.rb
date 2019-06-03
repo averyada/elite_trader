@@ -2,10 +2,10 @@ COMMODITIES_JSON = "data/commodities.json"
 
 module EliteTrader
   class Commodities
-    def initialize
+    def initialize(verbose=false)
       @commodities = Hash.new
       File.open(COMMODITIES_JSON) do |f|
-        puts "Parsing commodities.json into JSON.."
+        puts "Parsing commodities.json into JSON.." if verbose
         JSON.parse(f.read).each do |c|
           buy_price, sell_price = c['min_buy_price'], c['max_sell_price']
           unless buy_price.nil? or sell_price.nil?

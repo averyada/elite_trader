@@ -15,6 +15,10 @@ class App < Thor
   map "-B" => :besthop
   map "-T" => :top10
 
+  class_option :verbose, :type => :boolean
+
+  check_unknown_options!
+
   def self.exit_on_failure?
     true
   end

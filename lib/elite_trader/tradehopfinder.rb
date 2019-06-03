@@ -7,11 +7,12 @@ require_relative 'route'
 module EliteTrader
   class TradeHopFinder
     attr_reader :systems, :stations, :commodities, :listings
-    def initialize
-      @systems     = Systems.new
-      @stations    = Stations.new
-      @commodities = Commodities.new
-      @listings    = Listings.new
+    def initialize(verbose=false)
+      @systems     = Systems.new(verbose)
+      @stations    = Stations.new(verbose)
+      @commodities = Commodities.new(verbose)
+      @listings    = Listings.new(verbose)
+
       @routes      = Array.new
     end
 

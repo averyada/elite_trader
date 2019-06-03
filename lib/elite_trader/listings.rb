@@ -6,8 +6,8 @@ module EliteTrader
   class Listings
     attr_reader :buy_listings, :sell_listings
 
-    def initialize
-      puts "Creating connection to #{LISTINGS_DB}.."
+    def initialize(verbose=false)
+      puts "Creating connection to #{LISTINGS_DB}.." if verbose
       @db = SQLite3::Database.new LISTINGS_DB
       @buy_listings  = Array.new
       @sell_listings = Array.new
