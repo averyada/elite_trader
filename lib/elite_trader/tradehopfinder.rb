@@ -57,8 +57,6 @@ module EliteTrader
       puts "Allegiance   : #{system['allegiance']}"
       puts "Security     : #{system['security']}"
       puts "Needs permit : #{system['needs_permit']}"
-      puts "X coordinate : #{system['x']}"
-      puts "Y coordinate : #{system['y']}"
     end
 
     def print_station_info(station)
