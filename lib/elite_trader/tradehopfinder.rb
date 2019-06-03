@@ -22,11 +22,14 @@ module EliteTrader
 
       for x in 0..options[:listings]
         for y in 0..options[:listings]
+          buy_listing  = @listings.buy_listings[x]
+          sell_listing = @listings.sell_listings[y]
           buy_station  = @stations.find(@listings.buy_listings[x][1])
           sell_station = @stations.find(@listings.sell_listings[y][1])
           buy_system   = @systems.find(buy_station['system_id'])
           sell_system  = @systems.find(sell_station['system_id'])
-          r = Route.new(commodity, buy_system, sell_system, buy_station, sell_station)
+          r = Route.new(commodity, buy_listing, sell_listing, buy_system,
+                        sell_system, buy_station, sell_station)
           @routes.push(r)
         end
       end
@@ -38,6 +41,8 @@ module EliteTrader
         puts "Route ##{idx+1}"
         puts "-------------------------------------------"
         puts "Trade route distance: #{r.distance} LY"
+        puts "Profit: #{r.profit} CR"
+        puts "Profit per LY: #{r.profit_per_ly} CR/LY"
         puts
         puts "Buy #{r.commodity['name']}"
         print_system_info(r.buy_system)
