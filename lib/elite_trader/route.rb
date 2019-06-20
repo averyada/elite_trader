@@ -1,6 +1,7 @@
 module EliteTrader
   class Route
-    attr_reader :commodity, :buy_system, :sell_system, :buy_station, :sell_station
+    attr_reader :commodity, :buy_system, :sell_system, :buy_station,
+                :sell_station, :buy_listing, :sell_listing
 
     def initialize(commodity, buy_listing, sell_listing, buy_system, sell_system,
                    buy_station, sell_station)

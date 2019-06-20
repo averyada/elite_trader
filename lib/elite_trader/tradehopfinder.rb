@@ -57,12 +57,14 @@ module EliteTrader
         puts "Profit per LY: #{r.profit_per_ly} CR/LY"
         puts
         puts "Buy #{r.commodity['name']}"
+        puts "Buy Price          : #{r.buy_listing[5]} CR"
         print_system_info(r.buy_system)
         print_station_info(r.buy_station)
 
         puts "        >>>>>>>>>>>>>>>>>>>>>>>>>>>        "
 
         puts "Sell #{r.commodity['name']}"
+        puts "Sell Price         : #{r.sell_listing[6]} CR"
         print_system_info(r.sell_system)
         print_station_info(r.sell_station)
         puts "-------------------------------------------"
